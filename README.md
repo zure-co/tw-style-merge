@@ -143,7 +143,7 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## 🤝 Contributing
 
-Contributions, issues, and feature requests are welcome! Feel free to open a pull request or submit an issue on [GitHub](https://github.com/your-repository-link).
+Contributions, issues, and feature requests are welcome! Feel free to open a pull request or submit an issue on [GitHub](https://github.com/zure-co/tw-style-merge).
 
 ---
 
