@@ -1,9 +1,14 @@
 {
   "name": "tw-style-merge",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Tailwind CSS plugin to merge custom styles with theme configurations.",
   "main": "src/index.js",
-  "keywords": ["tailwindcss", "plugin", "merge", "styles"],
+  "keywords": [
+    "tailwindcss",
+    "plugin",
+    "merge",
+    "styles"
+  ],
   "author": "Renan Prado",
   "license": "MIT",
   "dependencies": {
