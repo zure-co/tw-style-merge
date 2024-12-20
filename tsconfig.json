@@ -2,10 +2,14 @@
   "compilerOptions": {
     "target": "es2019",
     "lib": ["es2019", "dom"],
+    "declaration": true,
+    "emitDeclarationOnly": false,
     "module": "commonjs",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "outDir": "./dist"
-  }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
 }

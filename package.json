@@ -1,5 +1,5 @@
 {
-  "name": "tw-style-merge--test",
+  "name": "tw-style-merge",
   "version": "1.0.1",
   "description": "A Tailwind CSS plugin to merge custom styles with theme configurations.",
   "main": "dist/index.js",
@@ -24,5 +24,8 @@
   "devDependencies": {
     "nodemon": "^3.1.9",
     "typescript": "^5.7.2"
-  }
+  },
+  "files": [
+    "dist"
+  ]
 }
