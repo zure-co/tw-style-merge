@@ -118,6 +118,30 @@ merge: {
 
 ---
 
+## ↔️ Variable Correlation
+
+When declaring a variable in tw-style-merge, its value is retrieved based on the context of the corresponding property. For example, if you declare a variable in the color property, the plugin will look for the variable's value in the colors attribute inside the theme object in the tailwind.config.js file. Similarly, if you declare a variable in the width, padding, or margin properties, among others, the plugin will look for the value in the spacing attribute within the same theme. Below is a table with the complete correlation:
+
+|  Tailwind theme | CSS Property |
+|--|--|
+| `colors` | `color` |
+| `fontFamily` | `fontFamily` |
+| `fontSize` | `fontSize` |
+| `spacing` | `width`, `height`, `padding`, `paddingLeft`, `paddingRight`, `paddingTop`, `paddingBottom`, `margin`, `marginLeft`, `marginRight`, `marginTop`, `marginBottom` |
+| `borderRadius` | `borderRadius` |
+| `boxShadow` | `boxShadow` |
+| `opacity` | `opacity` |
+| `zIndex` | `zIndex` |
+| `lineHeight` | `lineHeight` |
+| `letterSpacing` | `letterSpacing` |
+| `maxWidth` | `maxWidth` |
+| `maxHeight` | `maxHeight` |
+| `minWidth` | `minWidth` |
+| `minHeight` | `minHeight` |
+| `transitionDuration` | `transitionDuration` |
+
+---
+
 ## 🔧 Advanced Options
 
 - **Custom Prefix**: You can set a custom prefix for generated classes:

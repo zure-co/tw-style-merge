@@ -21,7 +21,6 @@ type ThemeMapping = {
   [key: string]: string | string[]
 }
 
-// Mapeamento de atributos do tema
 const themeMappings: ThemeMapping = {
   colors: 'color',
   fontFamily: 'fontFamily',
