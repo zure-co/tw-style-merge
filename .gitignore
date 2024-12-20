@@ -1,0 +1,51 @@
+# Diretório de saída do TypeScript
+dist/
+build/
+
+# Arquivos de configurações locais
+.env
+.env.*.local
+
+# Node.js
+node_modules/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependências do lockfile de pacotes (se você quiser ignorar arquivos lock específicos)
+package-lock.json
+yarn.lock
+
+# Cache do TypeScript
+*.tsbuildinfo
+
+# IDEs e editores
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Sistemas operacionais
+.DS_Store
+Thumbs.db
+
+# Testes e cobertura
+coverage/
+
+# Arquivos de pacotes
+*.tgz
+
+# Arquivos de compilação do npm
+.npm/
+
+# Configurações locais do TypeScript
+tsconfig.tsbuildinfo
+
+# Outras configurações locais
+*.local
+*.log
+*.bak
