@@ -7,6 +7,7 @@ import {
   KeyValue,
   Node,
 } from './types'
+import { getThemeAttributeByCss } from './utils'
 
 /**** STRUCTURE ****************************************************
 
@@ -71,17 +72,17 @@ export class StyleManager {
 
   private getVariableValue(key: string, value: string) {
     const variableName = value.slice(1)
-    const safeKey = key === 'color' ? 'colors' : key
+    const safeKey = getThemeAttributeByCss(key)
 
     const variableValue = this.getTheme(`${safeKey}.${variableName}`) as
       | string
       | AttributeWithDefault
 
     if (typeof variableValue === 'string') {
-      return variableValue || ''
+      return variableValue
     }
 
-    return variableValue.DEFAULT || ''
+    return variableValue?.DEFAULT || ''
   }
 
   private defineClassAttributes(className: string, attributes: Attribute[]) {

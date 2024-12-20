@@ -10,5 +10,5 @@ export type KeyValue = {
 export type Node = Record<string, Record<string, string>>
 export type Attribute = [string, string]
 export type AttributeWithDefault = {
-  DEFAULT: string
+  DEFAULT?: string
 }
