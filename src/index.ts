@@ -1,29 +1,34 @@
 import { PluginAPI } from 'tailwindcss/types/config'
-import { StyleManager } from './StyleManager'
 import { Node } from './types'
-import { PLUGIN } from './const'
+import { getResolvedNode, initializeStyleManager } from './utils'
 
 export type StyleMergeProps = {
   prefix?: string
   node?: string
 }
 
-export type TwStyleMerge = (props?: StyleMergeProps) => (api: PluginAPI) => void
+export type TailwindPlugin = (api: PluginAPI) => void
+export type TwStyleMerge = (props?: StyleMergeProps) => TailwindPlugin
 
-export default function TwStyleMerge(
-  props?: StyleMergeProps
-): (api: PluginAPI) => void {
-  const node = props?.node ? props.node : PLUGIN.node
-  const prefix = props?.prefix
+export default function TwStyleMerge({
+  prefix,
+  node,
+}: StyleMergeProps = {}): TailwindPlugin {
+  const resolvedNode = getResolvedNode(node)
 
   return ({ addUtilities, theme: getTheme }: PluginAPI) => {
-    const NODE = getTheme(node) as Node | undefined
+    const nodeConfig = getTheme(resolvedNode) as Node | undefined
 
-    if (NODE) {
-      const styleManager = new StyleManager(NODE, getTheme, prefix)
-      styleManager.buildStyle()
-      const CSSClasses = styleManager.getCSS()
-      addUtilities(CSSClasses)
+    if (nodeConfig) {
+      const generatedUtilities = initializeStyleManager(
+        nodeConfig,
+        getTheme,
+        prefix
+      )
+
+      console.log('---', generatedUtilities)
+
+      addUtilities(generatedUtilities)
     }
   }
 }

@@ -9,8 +9,6 @@ export type KeyValue = {
 
 export type Node = Record<string, Record<string, string>>
 export type Attribute = [string, string]
-
-export type ThemeFunction = <T = string | undefined>(
-  path: string,
-  defaultValue?: T
-) => T
+export type AttributeWithDefault = {
+  DEFAULT: string
+}

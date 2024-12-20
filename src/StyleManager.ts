@@ -1,32 +1,52 @@
+import { PluginAPI } from 'tailwindcss/types/config'
 import { PLUGIN } from './const'
 import {
   Attribute,
+  AttributeWithDefault,
   CSSRuleObject,
   KeyValue,
   Node,
-  ThemeFunction,
 } from './types'
+
+/**** STRUCTURE ****************************************************
+
+  NODE (tailwind.config.js { theme: { "tw-style.merge": .... } })
+    -> CLASS (ex: heading-1, modal-container)
+      -> ATTRIBUTE ({ color: 'black' })
+      -> ATTRIBUTE ({ fontFamily: 'Arial' })
+
+********************************************************************/
+
+/**
+ * In the `tailwind.config.js`, we use what is referred to as a `node`,
+ * which is defined by default as `"tw-style-merge"` (but can be customized in the plugin settings).
+ * The `node` is essentially a key in the `theme` object within `tailwind.config.js`.
+ * Inside this `node`, we define several `classes`. Each `class` contains one or more `attributes`
+ * that represent the applied styles, such as `{ color: "black" }`. These attributes
+ * correspond directly to the CSS properties that will be generated.
+ * `Theme` is each styling attribute, example: color, fontFamily, etc...
+ */
 
 export class StyleManager {
   private prefix: string | undefined
   private css: CSSRuleObject = {}
   private node: Node
-  private getTheme: ThemeFunction
+  private getTheme: PluginAPI['theme']
 
-  constructor(node: Node, getTheme: ThemeFunction, prefix?: string) {
+  constructor(node: Node, getTheme: PluginAPI['theme'], prefix?: string) {
     this.node = node
     this.prefix = prefix
     this.getTheme = getTheme
   }
 
-  public createTheme(name: string) {
+  public createClass(name: string) {
     this.css = {
       ...this.css,
       [name]: {},
     }
   }
 
-  public addThemeAttribute(className: string, { key, value }: KeyValue) {
+  public addClassAttribute(className: string, { key, value }: KeyValue) {
     this.css[className][key] = value
   }
 
@@ -35,13 +55,13 @@ export class StyleManager {
   }
 
   public buildStyle() {
-    const themeStyleList = Object.entries(this.node)
+    const classesStyleList = Object.entries(this.node)
 
-    themeStyleList.forEach(([theme, attributes]) => {
-      const classname = this.getClassName(theme)
-      this.createTheme(classname)
-      const themeAttributes: Attribute[] = Object.entries(attributes)
-      this.defineThemeAttributes(classname, themeAttributes)
+    classesStyleList.forEach(([currentClass, attributes]) => {
+      const classname = this.getClassName(currentClass)
+      this.createClass(classname)
+      const classAttributes: Attribute[] = Object.entries(attributes)
+      this.defineClassAttributes(classname, classAttributes)
     })
   }
 
@@ -51,11 +71,20 @@ export class StyleManager {
 
   private getVariableValue(key: string, value: string) {
     const variableName = value.slice(1)
-    const variableValue = this.getTheme(`${key}.${variableName}`)
-    return variableValue || ''
+    const safeKey = key === 'color' ? 'colors' : key
+
+    const variableValue = this.getTheme(`${safeKey}.${variableName}`) as
+      | string
+      | AttributeWithDefault
+
+    if (typeof variableValue === 'string') {
+      return variableValue || ''
+    }
+
+    return variableValue.DEFAULT || ''
   }
 
-  private defineThemeAttributes(theme: string, attributes: Attribute[]) {
+  private defineClassAttributes(className: string, attributes: Attribute[]) {
     attributes.forEach(([key, rawValue]) => {
       let value: string = rawValue
 
@@ -65,7 +94,7 @@ export class StyleManager {
 
       const attribute = { key, value }
 
-      this.addThemeAttribute(theme, attribute)
+      this.addClassAttribute(className, attribute)
     })
   }
 
