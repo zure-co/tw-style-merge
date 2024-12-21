@@ -52,7 +52,7 @@ To type the plugin inside `tailwind.config.js` just add this [JSDoc Type Annotat
 
 ```javascript
 /** @type {import('@zure/tw-style-merge').TwStyleMerge} */
-const styleMerge = require('@zure/tw-style-merge')
+const twStyleMerge = require('@zure/tw-style-merge')
 ```
 
 ## 💡 Usage
@@ -77,7 +77,7 @@ To set a prefix for your custom classes, simply configure it in the plugin decla
 module.exports = {
    // ...
    plugins: [
-     styleMerge({ prefix: 'my-prefix' }),
+     twStyleMerge({ prefix: 'my-prefix' }),
    ],
 }
 ```
@@ -162,7 +162,7 @@ It is possible to change the default node used for **TwStyleMerge** configuratio
 
 module.exports = {
    plugins: [
-     styleMerge({ node: 'custom-node-name' }),
+     twStyleMerge({ node: 'custom-node-name' }),
    ],
    theme: {
       "custom-node-name": { // definition of classes... }
