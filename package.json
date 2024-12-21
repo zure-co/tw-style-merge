@@ -1,6 +1,6 @@
 {
   "name": "@zure/tw-style-merge",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A Tailwind CSS plugin to merge custom styles with theme configurations.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
