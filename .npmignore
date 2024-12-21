@@ -1,0 +1,13 @@
+# Ignore arquivos de teste
+*.test.js
+*.spec.js
+tests/
+__tests__/
+
+# Ignore configurações de build e outros arquivos desnecessários
+node_modules/
+dist/
+*.log
+coverage/
+.vscode/
+.env

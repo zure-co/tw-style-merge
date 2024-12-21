@@ -30,10 +30,10 @@ export default function TwStyleMerge({
     const nodeConfig = getTheme(resolvedNode) as Node | undefined
 
     if (nodeConfig) {
-      const styleManager = new StyleManager(nodeConfig, getTheme, prefix)
+      const manager = new StyleManager(nodeConfig, getTheme, prefix)
 
       // Adds the generated CSS utilities to Tailwind.
-      addUtilities(styleManager.generateCSS())
+      addUtilities(manager.generateCSS())
     }
   }
 }
