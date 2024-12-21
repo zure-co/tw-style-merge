@@ -1,190 +1,190 @@
-# StyleMerge
+# TwStyleMerge
 
-The **TwStyleMerge** is a Tailwind CSS plugin that enables you to create CSS classes with multiple properties directly in the `tailwind.config.js` file. This eliminates the need to use directives like `@apply` in your CSS files, streamlining and organizing your styling workflow.
+**TwStyleMerge** is a Tailwind CSS plugin that simplifies the creation of reusable CSS classes directly in the `tailwind.config.js` file. By defining multiple properties for your classes, this plugin eliminates the need for `@apply` directives, streamlining your styling process and enhancing maintainability.
+
+---
 
 ## 🛠️ Features
 
-- Create custom utility classes based on the Tailwind theme.
-- Using a variable to reference styles already existing in tailwind.config.js
-- Set a custom prefix for your classes.
+- **Custom Utility Classes**: Define utility classes based on your Tailwind theme.
+- **Variable Support**: Reference existing styles defined in your `tailwind.config.js` file.
+- **Custom Prefix**: Add a unique prefix to your generated classes.
 
 ---
 
 ## 🚀 Installation
 
-Install the plugin via **npm**:
+You can install the plugin using one of the following methods:
+
+### Using npm
 
 ```bash
 npm install @zure/tw-style-merge
 ```
 
----
+### Using Yarn
 
-## ⚙️Configuration
+```bash
+yarn add @zure/tw-style-merge
+```
 
-Add the plugin to your `tailwind.config.js` file and define your custom styles under the `tw-style-merge` theme key:
+### Using pnpm
+
+```bash
+pnpm add @zure/tw-style-merge
+```
+
+## ⚙️ Configuration
+
+Add the plugin to your `tailwind.config.js` file and define custom styles under the `tw-style-merge` theme key:
 
 ```javascript
 // tailwind.config.js
-const twStyleMerge = require('@zure/tw-style-merge')
+const twStyleMerge = require('@zure/tw-style-merge');
 
 module.exports = {
   plugins: [
     twStyleMerge()
   ],
   theme: {
-    // plugin configuration
     "tw-style-merge": {
-       "heading-1": {
-         "fontFamily": "Arial",
-   	 "color": "#000000"
-       }
+      "heading-1": {
+        "fontFamily": "Arial",
+        "color": "#000000"
+      }
     }
   },
-}
+};
 ```
 
-> This setting also works inside `theme.extends`
+> **Note**: This configuration works within `theme.extend` as well.
 
-### Plugin typing inside tailwind.config.js
+### Plugin Typing in `tailwind.config.js`
 
-To type the plugin inside `tailwind.config.js` just add this [JSDoc Type Annotation](https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html).
+To add typing support, use the following JSDoc Type Annotation:
 
 ```javascript
 /** @type {import('@zure/tw-style-merge').TwStyleMerge} */
-const twStyleMerge = require('@zure/tw-style-merge')
+const twStyleMerge = require('@zure/tw-style-merge');
 ```
+
+---
 
 ## 💡 Usage
 
-After configuring the plugin, you can use the generated classes in your HTML:
+Once configured, use the generated classes in your HTML:
 
 ```html
 <h1 class="heading-1">Main heading</h1>
 ```
 
-> If you're using an external plugin for Tailwind class suggestions, such as **[Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)** , the `IntelliSense` will work seamlessly, displaying all attributes and properties of the configured classes.
+If you're using **[Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)**, IntelliSense will detect and suggest the configured classes seamlessly.
 
-## Adding prefix to classes
+---
 
-### Setting prefix
+## 🔧 Advanced Options
 
-To set a prefix for your custom classes, simply configure it in the plugin declaration within the `tailwind.config.js` file as follows:
+### Adding a Custom Prefix
+
+To prefix your custom classes, configure the plugin as follows:
 
 ```javascript
 // tailwind.config.js
-
 module.exports = {
-   // ...
-   plugins: [
-     twStyleMerge({ prefix: 'my-prefix' }),
-   ],
-}
+  plugins: [
+    twStyleMerge({ prefix: 'my-prefix' })
+  ],
+};
 ```
 
-### Using your prefixed classes
+Usage:
 
 ```html
 <h1 class="my-prefix-heading-1">Main heading</h1>
 ```
 
----
+### Changing the Configuration Node
 
-## 📝 Using variables
-
-With  **TwStyleMerge** , you can use variables to reference properties already defined in your `tailwind.config.js`, making it easier to maintain consistency and reuse styles.
-
-### Usage example
+Customize the default configuration node (`tw-style-merge`) by specifying a different name:
 
 ```javascript
 // tailwind.config.js
-const twStyleMerge = require('@zure/tw-style-merge')
+module.exports = {
+  plugins: [
+    twStyleMerge({ node: 'custom-node-name' })
+  ],
+  theme: {
+    "custom-node-name": {
+      "heading-1": {
+        "fontFamily": "Arial",
+        "color": "#000000"
+      }
+    }
+  }
+};
+```
+
+---
+
+## 📝 Variables Support
+
+Leverage variables to reuse existing properties from your `tailwind.config.js` file:
+
+```javascript
+// tailwind.config.js
+const twStyleMerge = require('@zure/tw-style-merge');
 
 module.exports = {
   plugins: [
     twStyleMerge()
   ],
   theme: {
-    "colors": {
-       "primary": {
-          "dark": "#0000ff"
-        }
-     },
-  
+    colors: {
+      primary: {
+        dark: "#0000ff"
+      }
+    },
     "tw-style-merge": {
-       "heading-1": {
-         "fontFamily": "Arial",
-   	 "color": "$primary.dark" // The plugin will look for the primary.dark attribute within the colors configuration. 
-       }
+      "heading-1": {
+        "fontFamily": "Arial",
+        "color": "$primary.dark"
+      }
     }
-  },
-}
+  }
+};
 ```
 
-### ↔️ Variable Correlation
+### Variable Mapping
 
-The plugin will retrieve the value of each declared variable within its corresponding context. For example:
+The plugin intelligently maps variables to their respective theme sections. For example:
 
-* Variables declared under the `color` property will be fetched from `colors`.
-* Variables under the `fontFamily` property will be fetched from `fontFamily`.
-* For properties like `margin`, `padding`, `width`, etc., the plugin will fetch values from `spacing`.
-
-Below is a table mapping CSS properties to their corresponding sections in the `tailwind.config.js` file:
-
-| Tailwind theme         | CSS Property                                                                                                                                                                           |
-| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `colors`             | `color`                                                                                                                                                                              |
-| `fontFamily`         | `fontFamily`                                                                                                                                                                         |
-| `fontSize`           | `fontSize`                                                                                                                                                                           |
-| `spacing`            | `width`, `height`, `padding`, `paddingLeft`, `paddingRight`, `paddingTop`, `paddingBottom`, `margin`, `marginLeft`, `marginRight`, `marginTop`, `marginBottom` |
-| `borderRadius`       | `borderRadius`                                                                                                                                                                       |
-| `boxShadow`          | `boxShadow`                                                                                                                                                                          |
-| `opacity`            | `opacity`                                                                                                                                                                            |
-| `zIndex`             | `zIndex`                                                                                                                                                                             |
-| `lineHeight`         | `lineHeight`                                                                                                                                                                         |
-| `letterSpacing`      | `letterSpacing`                                                                                                                                                                      |
-| `maxWidth`           | `maxWidth`                                                                                                                                                                           |
-| `maxHeight`          | `maxHeight`                                                                                                                                                                          |
-| `minWidth`           | `minWidth`                                                                                                                                                                           |
-| `minHeight`          | `minHeight`                                                                                                                                                                          |
-| `transitionDuration` | `transitionDuration`                                                                                                                                                                 |
-
----
-
-## 🔧 Advanced Options
-
-### Changing the plugin configuration node
-
-It is possible to change the default node used for **TwStyleMerge** configuration. By default, the node is set to `"tw-style-merge"`. However, if needed, you can modify it with the following configuration:
-
-```javascript
-// tailwind.config.js
-
-module.exports = {
-   plugins: [
-     twStyleMerge({ node: 'custom-node-name' }),
-   ],
-   theme: {
-      "custom-node-name": { // definition of classes... }
-   }
-}
-
-```
-
----
-
-## 📜 License
-
-This project is licensed under the [MIT License](LICENSE).
+| CSS Property         | Tailwind Theme Section |
+| -------------------- | ---------------------- |
+| `color`              | `colors`               |
+| `fontFamily`         | `fontFamily`           |
+| `padding`, `margin`  | `spacing`              |
+| `borderRadius`       | `borderRadius`         |
+| `boxShadow`          | `boxShadow`            |
+| `zIndex`             | `zIndex`               |
+| `lineHeight`         | `lineHeight`           |
+| `letterSpacing`      | `letterSpacing`        |
+| `transitionDuration` | `transitionDuration`   |
 
 ---
 
 ## 🤝 Contributing
 
-Contributions, issues, and feature requests are welcome! Feel free to open a pull request or submit an issue on [GitHub](https://github.com/zure-co/tw-style-merge).
+Contributions are welcome! Feel free to submit issues or pull requests on [GitHub](https://github.com/zure-co/tw-style-merge).
+
+---
+
+## 📜 License
+
+Licensed under the [MIT License](LICENSE).
 
 ---
 
 ## 🌟 Thanks
 
-Built with ❤️ and **Tailwind CSS** for developers who love clean, reusable styles.
+Built with ❤️ for developers who value clean and reusable styles. Powered by **Tailwind CSS**.
+

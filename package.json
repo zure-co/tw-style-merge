@@ -12,7 +12,8 @@
     "test:deploy": "vitest --run",
     "test:cov": "vitest --coverage",
     "nodemon": "nodemon dist/index.js",
-    "prepare": "npx husky install"
+    "prepare": "npx husky install",
+    "publish": "npm publish --access public"
   },
   "keywords": [
     "tailwindcss",
