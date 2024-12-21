@@ -158,17 +158,23 @@ module.exports = {
 
 The plugin intelligently maps variables to their respective theme sections. For example:
 
-| CSS Property         | Tailwind Theme Section |
-| -------------------- | ---------------------- |
-| `color`              | `colors`               |
-| `fontFamily`         | `fontFamily`           |
-| `padding`, `margin`  | `spacing`              |
-| `borderRadius`       | `borderRadius`         |
-| `boxShadow`          | `boxShadow`            |
-| `zIndex`             | `zIndex`               |
-| `lineHeight`         | `lineHeight`           |
-| `letterSpacing`      | `letterSpacing`        |
-| `transitionDuration` | `transitionDuration`   |
+| Tailwind theme         | CSS Property                                                                                                                                                                           |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| colors             | color                                                                                                                                                                              |
+| fontFamily         | fontFamily                                                                                                                                                                         |
+| fontSize           | fontSize                                                                                                                                                                           |
+| spacing            | width, height, padding, paddingLeft, paddingRight, paddingTop, paddingBottom, margin, marginLeft, marginRight, marginTop, marginBottom |
+| borderRadius       | borderRadius                                                                                                                                                                       |
+| boxShadow          | boxShadow                                                                                                                                                                          |
+| opacity            | opacity                                                                                                                                                                            |
+| zIndex             | zIndex                                                                                                                                                                             |
+| lineHeight         | lineHeight                                                                                                                                                                         |
+| letterSpacing      | letterSpacing                                                                                                                                                                      |
+| maxWidth           | maxWidth                                                                                                                                                                           |
+| maxHeight          | maxHeight                                                                                                                                                                          |
+| minWidth           | minWidth                                                                                                                                                                           |
+| minHeight          | minHeight                                                                                                                                                                          |
+| transitionDuration | transitionDuration                                                                                                                                                                 |
 
 ---
 
