@@ -15,7 +15,7 @@ The **TwStyleMerge** is a Tailwind CSS plugin that enables you to create CSS cla
 Install the plugin via **npm**:
 
 ```bash
-npm install tw-style-merge
+npm install @zure/tw-style-merge
 ```
 
 ---
@@ -26,7 +26,7 @@ Add the plugin to your `tailwind.config.js` file and define your custom styles u
 
 ```javascript
 // tailwind.config.js
-const twStyleMerge = require('tw-style-merge')
+const twStyleMerge = require('@zure/tw-style-merge')
 
 module.exports = {
   plugins: [
@@ -51,8 +51,8 @@ module.exports = {
 To type the plugin inside `tailwind.config.js` just add this [JSDoc Type Annotation](https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html).
 
 ```javascript
-/** @type {import('tw-style-merge').TwStyleMerge} */
-const styleMerge = require('tw-style-merge')
+/** @type {import('@zure/tw-style-merge').TwStyleMerge} */
+const styleMerge = require('@zure/tw-style-merge')
 ```
 
 ## 💡 Usage
@@ -98,7 +98,7 @@ With  **TwStyleMerge** , you can use variables to reference properties already d
 
 ```javascript
 // tailwind.config.js
-const twStyleMerge = require('tw-style-merge')
+const twStyleMerge = require('@zure/tw-style-merge')
 
 module.exports = {
   plugins: [
