@@ -8,7 +8,7 @@ export type KeyValue = {
 }
 
 export type Node = Record<string, Record<string, string>>
-export type Attribute = [string, string]
-export type AttributeWithDefault = {
+export type Property = [string, string]
+export type PropertyWithDefault = {
   DEFAULT?: string
 }

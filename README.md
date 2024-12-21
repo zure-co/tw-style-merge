@@ -1,12 +1,11 @@
 # StyleMerge
 
-The **StyleMerge** is a **Tailwind CSS** plugin that allows you to combine classes and styles within the Tailwind configuration file itself.
+The **TwStyleMerge** is a Tailwind CSS plugin that enables you to create CSS classes with multiple properties directly in the `tailwind.config.js` file. This eliminates the need to use directives like `@apply` in your CSS files, streamlining and organizing your styling workflow.
 
 ## 🛠️ Features
 
 - Create custom utility classes based on the Tailwind theme.
-- Use fixed values ​​or theme variables (with the `$` prefix).
-- Fully supports variants like `responsive` and `hover`.
+- Using a variable to reference styles already existing in tailwind.config.js
 - Set a custom prefix for your classes.
 
 ---
@@ -23,138 +22,153 @@ npm install tw-style-merge
 
 ## ⚙️Configuration
 
-Add the plugin to your `tailwind.config.js` file and define your custom styles under the `merge` theme key:
+Add the plugin to your `tailwind.config.js` file and define your custom styles under the `tw-style-merge` theme key:
 
 ```javascript
-const styleMerge = require('tw-style-merge')
+// tailwind.config.js
+const twStyleMerge = require('tw-style-merge')
 
 module.exports = {
   plugins: [
-    styleMerge(), // Or pass a custom prefix, e.g. styleMerge('custom')
+    twStyleMerge()
   ],
   theme: {
-    extend: {
-      merge: {
-        heading: {
-          fontFamily: '$heading',
-          fontSize: '$xl',
-          fontWeight: '$bold',
-          lineHeight: '48px',
-          letterSpacing: '0.1em',
-          color: '$primary.500',
-        },
-        body: {
-          fontFamily: 'Arial, sans-serif',
-          fontSize: '16px',
-          fontWeight: '400',
-          lineHeight: '24px',
-          color: '#333333',
-        },
-      },
-    },
+    // plugin configuration
+    "tw-style-merge": {
+       "heading-1": {
+         "fontFamily": "Arial",
+   	 "color": "#000000"
+       }
+    }
   },
 }
 ```
 
----
+> This setting also works inside `theme.extends`
+
+### Plugin typing inside tailwind.config.js
+
+To type the plugin inside `tailwind.config.js` just add this [JSDoc Type Annotation](https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html).
+
+```javascript
+/** @type {import('tw-style-merge').TwStyleMerge} */
+const styleMerge = require('tw-style-merge')
+```
 
 ## 💡 Usage
 
 After configuring the plugin, you can use the generated classes in your HTML:
 
 ```html
-<h1 class="merge-heading">Main heading</h1>
-<p class="merge-body">Body text with custom styling.</p>
+<h1 class="heading-1">Main heading</h1>
 ```
 
-### Example with custom prefix
+> If you're using an external plugin for Tailwind class suggestions, such as **[Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)** , the `IntelliSense` will work seamlessly, displaying all attributes and properties of the configured classes.
 
-If you configure a different prefix, such as `styleMerge('custom')`, the generated classes will use the corresponding prefix:
+## Adding prefix to classes
 
-```html
-<h1 class="custom-heading">Main heading</h1>
-<p class="custom-body">Body text with custom styling.</p>
-```
+### Setting prefix
 
----
-
-## 📝 Defining styles
-
-### Theme syntax
-
-Styles defined in the `merge` theme can use:
-
-- **Theme variables**: use the `$` prefix to reference configured theme values.
-  Example: `$heading`, `$primary.500`
-- **Direct values**: Pass the value directly. Example: `'Arial, sans-serif'`, `'#333333'`
-
-### Complete configuration example
+To set a prefix for your custom classes, simply configure it in the plugin declaration within the `tailwind.config.js` file as follows:
 
 ```javascript
-merge: {
-  title: {
-    fontFamily: '$heading',
-    fontSize: '32px',
-    fontWeight: '$bold',
-    lineHeight: '40px',
-    letterSpacing: '0.1em',
-    color: '$primary.700',
-  },
-  subtitle: {
-    fontFamily: 'Roboto, sans-serif',
-    fontSize: '24px',
-    fontWeight: '500',
-    lineHeight: '32px',
-    color: '#555555',
-  },
-  caption: {
-    fontFamily: '$caption',
-    fontSize: '14px',
-    fontWeight: '$light',
-    color: '$secondary.300',
-  },
-},
+// tailwind.config.js
+
+module.exports = {
+   // ...
+   plugins: [
+     styleMerge({ prefix: 'my-prefix' }),
+   ],
+}
+```
+
+### Using your prefixed classes
+
+```html
+<h1 class="my-prefix-heading-1">Main heading</h1>
 ```
 
 ---
 
-## ↔️ Variable Correlation
+## 📝 Using variables
 
-When declaring a variable in tw-style-merge, its value is retrieved based on the context of the corresponding property. For example, if you declare a variable in the color property, the plugin will look for the variable's value in the colors attribute inside the theme object in the tailwind.config.js file. Similarly, if you declare a variable in the width, padding, or margin properties, among others, the plugin will look for the value in the spacing attribute within the same theme. Below is a table with the complete correlation:
+With  **TwStyleMerge** , you can use variables to reference properties already defined in your `tailwind.config.js`, making it easier to maintain consistency and reuse styles.
 
-|  Tailwind theme | CSS Property |
-|--|--|
-| `colors` | `color` |
-| `fontFamily` | `fontFamily` |
-| `fontSize` | `fontSize` |
-| `spacing` | `width`, `height`, `padding`, `paddingLeft`, `paddingRight`, `paddingTop`, `paddingBottom`, `margin`, `marginLeft`, `marginRight`, `marginTop`, `marginBottom` |
-| `borderRadius` | `borderRadius` |
-| `boxShadow` | `boxShadow` |
-| `opacity` | `opacity` |
-| `zIndex` | `zIndex` |
-| `lineHeight` | `lineHeight` |
-| `letterSpacing` | `letterSpacing` |
-| `maxWidth` | `maxWidth` |
-| `maxHeight` | `maxHeight` |
-| `minWidth` | `minWidth` |
-| `minHeight` | `minHeight` |
-| `transitionDuration` | `transitionDuration` |
+### Usage example
+
+```javascript
+// tailwind.config.js
+const twStyleMerge = require('tw-style-merge')
+
+module.exports = {
+  plugins: [
+    twStyleMerge()
+  ],
+  theme: {
+    "colors": {
+       "primary": {
+          "dark": "#0000ff"
+        }
+     },
+  
+    "tw-style-merge": {
+       "heading-1": {
+         "fontFamily": "Arial",
+   	 "color": "$primary.dark" // The plugin will look for the primary.dark attribute within the colors configuration. 
+       }
+    }
+  },
+}
+```
+
+### ↔️ Variable Correlation
+
+The plugin will retrieve the value of each declared variable within its corresponding context. For example:
+
+* Variables declared under the `color` property will be fetched from `colors`.
+* Variables under the `fontFamily` property will be fetched from `fontFamily`.
+* For properties like `margin`, `padding`, `width`, etc., the plugin will fetch values from `spacing`.
+
+Below is a table mapping CSS properties to their corresponding sections in the `tailwind.config.js` file:
+
+| Tailwind theme         | CSS Property                                                                                                                                                                           |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `colors`             | `color`                                                                                                                                                                              |
+| `fontFamily`         | `fontFamily`                                                                                                                                                                         |
+| `fontSize`           | `fontSize`                                                                                                                                                                           |
+| `spacing`            | `width`, `height`, `padding`, `paddingLeft`, `paddingRight`, `paddingTop`, `paddingBottom`, `margin`, `marginLeft`, `marginRight`, `marginTop`, `marginBottom` |
+| `borderRadius`       | `borderRadius`                                                                                                                                                                       |
+| `boxShadow`          | `boxShadow`                                                                                                                                                                          |
+| `opacity`            | `opacity`                                                                                                                                                                            |
+| `zIndex`             | `zIndex`                                                                                                                                                                             |
+| `lineHeight`         | `lineHeight`                                                                                                                                                                         |
+| `letterSpacing`      | `letterSpacing`                                                                                                                                                                      |
+| `maxWidth`           | `maxWidth`                                                                                                                                                                           |
+| `maxHeight`          | `maxHeight`                                                                                                                                                                          |
+| `minWidth`           | `minWidth`                                                                                                                                                                           |
+| `minHeight`          | `minHeight`                                                                                                                                                                          |
+| `transitionDuration` | `transitionDuration`                                                                                                                                                                 |
 
 ---
 
 ## 🔧 Advanced Options
 
-- **Custom Prefix**: You can set a custom prefix for generated classes:
+### Changing the plugin configuration node
+
+It is possible to change the default node used for **TwStyleMerge** configuration. By default, the node is set to `"tw-style-merge"`. However, if needed, you can modify it with the following configuration:
 
 ```javascript
-styleMerge('custom-prefix')
-```
+// tailwind.config.js
 
-- **Variants**: Classes are compatible with all Tailwind variants, such as `hover`, `focus`, and `responsive`.
-  Example:
+module.exports = {
+   plugins: [
+     styleMerge({ node: 'custom-node-name' }),
+   ],
+   theme: {
+      "custom-node-name": { // definition of classes... }
+   }
+}
 
-```html
-<p class="merge-body hover:merge-heading">Hover Effect</p>
 ```
 
 ---
