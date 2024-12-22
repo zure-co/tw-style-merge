@@ -1,10 +1,13 @@
-# Ignore arquivos de teste
-*.test.js
-*.spec.js
-tests/
-__tests__/
+# Ignore arquivos de teste em qualquer lugar, incluindo o dist/
+**/*.test.js
+**/*.spec.js
+**/*.test.ts
+**/*.spec.ts
+**/*.test.d.ts
+**/*.spec.d.ts
+**/__tests__/
 
-# Ignore configurações de build e outros arquivos desnecessários
+# Ignore configurações de build e arquivos desnecessários
 node_modules/
 dist/
 *.log
