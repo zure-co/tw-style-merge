@@ -2,6 +2,7 @@ import { PluginAPI } from 'tailwindcss/types/config'
 import { Node, ThemeCSSProperties } from './types'
 import { getResolvedNode } from './utils'
 import { StyleManager } from './StyleManager/index'
+import { Logger } from './Logger'
 
 type TailwindPlugin = (api: PluginAPI) => void
 type StyleMergeProps = {
@@ -37,6 +38,11 @@ export default function TwStyleMerge({
 
       // Adds the generated CSS utilities to Tailwind.
       addUtilities(manager.generateCSS())
+    } else {
+      const log = new Logger()
+      log.breakline()
+      log.nodeNotFound(resolvedNode)
+      log.breakline()
     }
   }
 }

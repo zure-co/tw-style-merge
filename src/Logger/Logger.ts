@@ -15,6 +15,13 @@ export class Logger {
     log(this.signature, this.getStatus('WARNING'), PATH_VAR, MESSAGE)
   }
 
+  nodeNotFound(name: string): void {
+    const NODE = chalk.blue(`${name}`)
+    const MESSAGE = 'node was not found in tailwind.config.js file'
+
+    log(this.signature, this.getStatus('WARNING'), NODE, MESSAGE)
+  }
+
   finally() {
     log(
       chalk.gray.bold('\nTwStyleMerge'),
