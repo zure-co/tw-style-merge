@@ -2,16 +2,19 @@ import { PluginAPI } from 'tailwindcss/types/config'
 import { PLUGIN } from '../const'
 import { getThemePropertyByCss } from '../utils'
 import { Property, PropertyWithDefault, CSSRuleObject, Node } from '../types'
+import { Logger } from '../Logger'
 
 export class StyleManager {
   private prefix: string | undefined
   private css: CSSRuleObject = {}
   private node: Node
   private getTheme: PluginAPI['theme']
+  private log: Logger
 
   constructor(node: Node, getTheme: PluginAPI['theme'], prefix?: string) {
     this.node = node
     this.prefix = prefix
+    this.log = new Logger()
     this.getTheme = getTheme
   }
 
@@ -28,6 +31,8 @@ export class StyleManager {
    * Iterates through the node to build the CSS structure.
    */
   private build(): void {
+    this.log.breakline()
+
     // get styles defined in tailwind.config.js
     const classes = Object.entries(this.node)
 
@@ -38,6 +43,9 @@ export class StyleManager {
       )
       this.css[formattedClassName] = mappedAttributes
     })
+
+    this.log.finally()
+    this.log.breakline()
   }
 
   /**
@@ -83,6 +91,10 @@ export class StyleManager {
     const resolvedValue = this.getTheme(variablePath) as
       | PropertyWithDefault
       | string
+
+    if (!resolvedValue) {
+      this.log.variableNotFound(variableName, key)
+    }
 
     return typeof resolvedValue === 'string'
       ? resolvedValue
