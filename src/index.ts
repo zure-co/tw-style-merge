@@ -1,5 +1,5 @@
 import { PluginAPI } from 'tailwindcss/types/config'
-import { Node } from './types'
+import { Node, ThemeCSSProperties } from './types'
 import { getResolvedNode } from './utils'
 import { StyleManager } from './StyleManager/index'
 
@@ -10,6 +10,9 @@ type StyleMergeProps = {
 }
 
 export type TwStyleMerge = (props?: StyleMergeProps) => TailwindPlugin
+export type TwStyleMergeNode = {
+  [key: string]: ThemeCSSProperties
+}
 
 /**
  * The main function for the `tw-style-merge` plugin.

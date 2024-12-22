@@ -66,6 +66,18 @@ To add typing support, use the following JSDoc Type Annotation:
 ```javascript
 /** @type {import('@zure/tw-style-merge').TwStyleMerge} */
 const twStyleMerge = require('@zure/tw-style-merge');
+
+module.exports = {
+  plugins: [
+    twStyleMerge()
+  ],
+  theme: {
+    /** @type {import('@zure/tw-style-merge').TwStyleMergeNode} */
+    "tw-style-merge": {
+      // ...
+    }
+  },
+};
 ```
 
 ---
@@ -158,23 +170,36 @@ module.exports = {
 
 The plugin intelligently maps variables to their respective theme sections. For example:
 
-| Tailwind theme         | CSS Property                                                                                                                                                                           |
-| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| colors             | color                                                                                                                                                                              |
-| fontFamily         | fontFamily                                                                                                                                                                         |
-| fontSize           | fontSize                                                                                                                                                                           |
-| spacing            | width, height, padding, paddingLeft, paddingRight, paddingTop, paddingBottom, margin, marginLeft, marginRight, marginTop, marginBottom |
-| borderRadius       | borderRadius                                                                                                                                                                       |
-| boxShadow          | boxShadow                                                                                                                                                                          |
-| opacity            | opacity                                                                                                                                                                            |
-| zIndex             | zIndex                                                                                                                                                                             |
-| lineHeight         | lineHeight                                                                                                                                                                         |
-| letterSpacing      | letterSpacing                                                                                                                                                                      |
-| maxWidth           | maxWidth                                                                                                                                                                           |
-| maxHeight          | maxHeight                                                                                                                                                                          |
-| minWidth           | minWidth                                                                                                                                                                           |
-| minHeight          | minHeight                                                                                                                                                                          |
-| transitionDuration | transitionDuration                                                                                                                                                                 |
+| Tailwind theme           | CSS Property                                                                                                                                                                     |
+| ------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| colors                   | color                                                                                                                                                                            |
+| spacing                  | width, height, padding, paddingLeft, paddingRight, paddingTop, paddingBottom, margin, marginLeft, marginRight, marginTop, marginBottom, maxWidth, maxHeight, minWidth, minHeight |
+| gap                      | gap                                                                                                                                                                              |
+| fontFamily               | fontFamily                                                                                                                                                                       |
+| fontSize                 | fontSize                                                                                                                                                                         |
+| fontWeight               | fontWeight                                                                                                                                                                       |
+| borderRadius             | borderRadius                                                                                                                                                                     |
+| boxShadow                | boxShadow                                                                                                                                                                        |
+| opacity                  | opacity                                                                                                                                                                          |
+| zIndex                   | zIndex                                                                                                                                                                           |
+| lineHeight               | lineHeight                                                                                                                                                                       |
+| letterSpacing            | letterSpacing                                                                                                                                                                    |
+| maxWidth                 | maxWidth                                                                                                                                                                         |
+| maxHeight                | maxHeight                                                                                                                                                                        |
+| minWidth                 | minWidth                                                                                                                                                                         |
+| minHeight                | minHeight                                                                                                                                                                        |
+| transitionDuration       | transitionDuration                                                                                                                                                               |
+| textDecorationColor      | textDecorationColor                                                                                                                                                              |
+| textDecorationThickness  | textDecorationThickness                                                                                                                                                          |
+| textUnderlineOffset      | textUnderlineOffset                                                                                                                                                              |
+| backgroundColor          | backgroundColor                                                                                                                                                                  |
+| borderColor              | borderColor                                                                                                                                                                      |
+| borderWidth              | borderWidth                                                                                                                                                                      |
+| transformOrigin          | transformOrigin                                                                                                                                                                  |
+| animation                | animation                                                                                                                                                                        |
+| transitionProperty       | transitionProperty                                                                                                                                                               |
+| transitionTimingFunction | transitionTimingFunction                                                                                                                                                         |
+| transitionDelay          | transitionDelay                                                                                                                                                                  |
 
 ---
 
@@ -193,4 +218,3 @@ Licensed under the [MIT License](LICENSE).
 ## 🌟 Thanks
 
 Built with ❤️ for developers who value clean and reusable styles. Powered by **Tailwind CSS**.
-

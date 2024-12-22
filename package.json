@@ -6,13 +6,9 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/index.js",
     "dev": "tsc --watch",
     "test": "vitest --watch",
     "test:deploy": "vitest --run",
-    "test:cov": "vitest --coverage",
-    "nodemon": "nodemon dist/index.js",
-    "prepare": "npx husky install",
     "publish": "npm publish --access public"
   },
   "keywords": [
@@ -27,9 +23,7 @@
     "tailwindcss": "^3.0.0"
   },
   "devDependencies": {
-    "@vitest/coverage-c8": "^0.33.0",
     "husky": "^8.0.0",
-    "nodemon": "^3.1.9",
     "typescript": "^5.7.2",
     "vitest": "^0.34.6"
   },
